@@ -18,6 +18,8 @@ public class Sprint implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private  String description;
+    @Temporal (TemporalType.DATE)
+
     private Date startDate;
     @ManyToOne
     private Project project;

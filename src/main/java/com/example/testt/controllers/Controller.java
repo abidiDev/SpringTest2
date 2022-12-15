@@ -1,5 +1,7 @@
 package com.example.testt.controllers;
 
+import com.example.testt.entities.Project;
+import com.example.testt.entities.Sprint;
 import com.example.testt.entities.User;
 import com.example.testt.services.Iservice;
 import lombok.AllArgsConstructor;
@@ -14,24 +16,22 @@ import java.util.List;
 public class Controller {
     Iservice iservice;
 
-    @GetMapping("/getAll")
-    public List<User> getAllUsers(){
-        return  iservice.getAllUsers();
-    }
-
-    @PostMapping("/add")
+    @PostMapping("/addUser")
     @ResponseBody
-    public User addUser(@RequestBody User c){
-        return iservice.addUser(c);
-    }
-    @PutMapping("/update")
-    @ResponseBody
-    public User updateUser(@RequestBody User c){
-        return  iservice.updateUser(c);
-    }
+    public User addUser( @RequestBody User c){return iservice.addUser(c);}
+    @GetMapping("/assignProjectToDevelopper/{projectid}/{devid}")
 
-    @DeleteMapping("/delete/{id}")
-    public void getUser(@PathVariable Integer id) {
-        iservice.deleteDetailUser(id);
-    }
+    public void assignProjectToDevelopper(@PathVariable int projectid,@PathVariable int devid){iservice.assignProjectToDevelopper(projectid, devid);}
+    @PutMapping("/assignProjectToDevelopper/{projectid}/{fName}/{IName}")
+
+    public void assignProjectToScrumMaster(@PathVariable int projectid, @PathVariable String fName,@PathVariable String IName){iservice.assignProjectToScrumMaster(projectid,fName,IName);};
+    @PostMapping("/addProject")
+    @ResponseBody
+    public Project addProject(@RequestBody Project p){return iservice.addProject(p);}
+    @GetMapping("/getProjectByScrumMaster/{fName}/{IName}")
+
+    public List<Project> getProjectByScrumMaster(@PathVariable String fName,@PathVariable String IName){return iservice.getProjectByScrumMaster(fName,IName);}
+    @PostMapping("/addsprintAndAssignToProject/{idProject}")
+    @ResponseBody
+    public void addsprintAndAssignToProject(@RequestBody Sprint sprint, int idProject){iservice.addsprintAndAssignToProject(sprint,idProject);}
 }
